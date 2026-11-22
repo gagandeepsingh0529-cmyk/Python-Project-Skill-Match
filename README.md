@@ -1,90 +1,41 @@
-# SkillMatch – Smart Student Skill Gap Analyzer
+# SkillMatch — Netlify edition
 
-SkillMatch is a Flask web application that compares a student's existing skills with the skills commonly associated with a selected career path. It calculates a transparent match percentage and recommends skills to learn next.
+A student career skill-gap demo built with a static HTML/CSS/JavaScript frontend, Netlify Functions, and Netlify Blobs for persistent profile and assessment storage.
 
 ## Features
-
-- Student profile registration
+- Student profile registration (no password; this is a classroom demo)
 - Six predefined career paths
-- Skill selection and rule-based matching
-- Career match percentage
-- Matched and missing skill lists
-- Dashboard with visual charts
+- Skill matching with matched and missing skills
+- Dashboard with latest assessment
 - Assessment history
-- SQLite database
+- Persistent JSON profile records using a site-wide Netlify Blobs store in Singapore (`ap-southeast-1`)
 
-## Technology stack
+## Deploy to your existing Netlify site
 
-- Python 3
-- Flask
-- SQLite
-- HTML, CSS, JavaScript
-- Chart.js
+1. Replace the old project files with the contents of this folder. Keep the repository name and your existing Netlify site.
+2. Commit and push the changes to the same GitHub `main` branch.
+3. In Netlify, open **Project configuration → Build & deploy → Continuous deployment → Build settings** (labels may vary) and set:
+   - Base directory: leave blank
+   - Build command: leave blank
+   - Publish directory: `public`
+   - Functions directory: `netlify/functions` (usually read from `netlify.toml`)
+4. Trigger a new deploy, or wait for the automatic deploy after the GitHub push.
+5. Open the site URL. Register a profile, run an analysis, then refresh the page to confirm the profile and assessment still load.
 
-## Run locally
+`netlify.toml` already declares the publish and Functions directories. No `SECRET_KEY` or external database credentials are required for this version; Netlify Blobs credentials are supplied automatically inside Netlify Functions.
 
-1. Install Python 3.10 or newer.
-2. Download or clone this repository.
-3. Open a terminal in the project folder.
-4. Create and activate a virtual environment:
+## Local development (optional)
 
-   **Windows**
-   ```bash
-   py -m venv .venv
-   .venv\Scripts\activate
-   ```
+Requires Node.js 18+.
 
-   **macOS/Linux**
-   ```bash
-   python3 -m venv .venv
-   source .venv/bin/activate
-   ```
+```bash
+npm install
+npx netlify dev
+```
 
-5. Install dependencies:
+Open the local URL printed by Netlify CLI. Local Blobs storage is sandboxed and separate from production data.
 
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-6. Start the website:
-
-   ```bash
-   python app.py
-   ```
-
-7. Open `http://127.0.0.1:5000` in your browser.
-
-The SQLite database (`skillmatch.db`) is created automatically on first run.
-
-## Deploy on Render
-
-1. Push this project to a GitHub repository.
-2. Sign in at https://render.com and choose **New → Web Service**.
-3. Connect your GitHub repository.
-4. Use these settings:
-   - Runtime: Python 3
-   - Build command: `pip install -r requirements.txt`
-   - Start command: `gunicorn app:app`
-   - Instance type: Free
-5. Add an environment variable named `SECRET_KEY` with a long random value, or keep the generated value from `render.yaml`.
-6. Click **Create Web Service** and wait for the deployment to finish.
-
-Render assigns a public `onrender.com` URL to the deployed website.
-
-## Important hosting note
-
-This starter project uses SQLite so it is easy to run locally and demonstrate. Render's free web services use an ephemeral filesystem, so the local SQLite database can be lost when the service restarts, spins down, or redeploys. This is suitable for a classroom demo, but not for permanent student records. For persistent hosted records, connect a managed PostgreSQL database and update the database layer.
-
-## How the matching score works
-
-`Match Score = (Number of matched required skills / Total required skills) × 100`
-
-The career skill lists are illustrative project data, not official job requirements or a guarantee of employability. The app is an educational self-assessment tool.
-
-## Suggested future improvements
-
-- Student login and password authentication
-- Admin panel to edit career skill requirements
-- Custom skill levels and weighted scoring
-- PostgreSQL for persistent hosted data
-- Export assessment report as PDF
+## Important demo limitations
+- This is a learning/demo application, not a secure account system. There are no passwords or email verification. Do not enter sensitive personal information.
+- Netlify Blobs is simple key-value JSON storage, not a relational database. It is suitable for this small demonstration; for high-concurrency or transactional production use, use a managed database.
+- Skill requirements are illustrative project data, not professional career certification criteria.
