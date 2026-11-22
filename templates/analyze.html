@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Analyze skills — SkillMatch{% endblock %}
+{% block content %}
+<section class="analyze-header"><div class="eyebrow">SKILL GAP ANALYSIS</div><h1>Let's map your <span class="gradient-text">next move.</span></h1><p>Choose a career and select every skill you currently have. Be honest — this is your personal starting point.</p></section>
+<form method="POST" class="analysis-form">
+  <section class="panel form-section"><div class="section-count">01</div><div class="form-section-content"><div class="panel-label">CHOOSE YOUR DIRECTION</div><h2>Which career interests you?</h2><div class="career-grid">{% for career, skills in careers.items() %}<label class="career-option"><input type="radio" name="career" value="{{ career }}" {% if loop.first %}checked{% endif %} required><span class="career-option-inner"><span class="career-symbol">{% if 'Data' in career %}▥{% elif 'Designer' in career %}✳{% elif 'Machine' in career %}◈{% elif 'Full Stack' in career %}⌘{% elif 'Web' in career %}◎{% else %}⌁{% endif %}</span><strong>{{ career }}</strong><small>{{ skills|length }} key skills</small></span></label>{% endfor %}</div></div></section>
+  <section class="panel form-section"><div class="section-count">02</div><div class="form-section-content"><div class="panel-label">YOUR CURRENT TOOLKIT</div><h2>Which skills do you already know?</h2><p class="muted">Select all that apply. You can update this in another assessment later.</p><div class="skill-picker">{% for skill in all_skills %}<label class="skill-choice"><input type="checkbox" name="skills" value="{{ skill }}"><span>{{ skill }}</span></label>{% endfor %}</div><div class="selected-count"><span id="selectedCount">0</span> skills selected</div></div></section>
+  <div class="submit-row"><a class="text-link" href="{{ url_for('dashboard') }}">← Back to dashboard</a><button class="button button-primary" type="submit">Calculate my skill match <span>→</span></button></div>
+</form>
+{% endblock %}

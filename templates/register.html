@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Create profile — SkillMatch{% endblock %}
+{% block content %}
+<section class="form-layout">
+  <div class="form-intro"><div class="eyebrow">LET'S GET TO KNOW YOU</div><h1>Your journey starts with <span class="gradient-text">you.</span></h1><p>Create a simple student profile to save your career assessments and track your progress.</p><div class="form-benefit"><span>✦</span> Your assessment history stays together in one dashboard.</div></div>
+  <form class="glass-form" method="POST">
+    <div class="form-kicker">STUDENT PROFILE <span>01 / 01</span></div>
+    <h2>Tell us about yourself</h2>
+    <label for="name">Full name</label><input id="name" name="name" placeholder="e.g. Alex Morgan" required maxlength="80">
+    <label for="email">Email address</label><input id="email" name="email" type="email" placeholder="you@example.com" required maxlength="120">
+    <label for="education">Education / course</label><input id="education" name="education" placeholder="e.g. B.Tech Computer Science" required maxlength="120">
+    <button class="button button-primary full-button" type="submit">Create my profile <span>→</span></button>
+    <p class="form-note">Demo project: no password or sensitive information is requested.</p>
+  </form>
+</section>
+{% endblock %}

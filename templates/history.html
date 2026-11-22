@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}Assessment history — SkillMatch{% endblock %}
+{% block content %}
+<section class="dashboard-header"><div><div class="eyebrow">YOUR PROGRESS</div><h1>Assessment <span class="gradient-text">history.</span></h1><p>Every check-in is another step toward your goals.</p></div><a class="button button-primary" href="{{ url_for('analyze') }}">New analysis <span>＋</span></a></section>
+<section class="panel history-panel"><div class="panel-heading"><div><div class="panel-label">SAVED RESULTS</div><h2>{{ assessments|length }} assessment(s)</h2></div></div>
+{% if assessments %}<div class="table-scroll"><table><thead><tr><th>CAREER PATH</th><th>MATCH SCORE</th><th>DATE</th></tr></thead><tbody>{% for item in assessments %}<tr><td><strong>{{ item['career'] }}</strong></td><td><span class="table-score">{{ item['score'] }}%</span><div class="mini-progress"><span style="width:{{ item['score'] }}%"></span></div></td><td>{{ item['created_at'] }}</td></tr>{% endfor %}</tbody></table></div>{% else %}<div class="empty-state compact"><div class="empty-icon">⌁</div><h2>No assessments yet</h2><p>Start an analysis to create your first saved result.</p><a class="button button-primary" href="{{ url_for('analyze') }}">Start analysis →</a></div>{% endif %}
+</section>
+{% endblock %}

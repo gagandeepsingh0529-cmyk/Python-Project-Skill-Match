@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SkillMatch helps students explore career paths and identify skills to develop.">
+  <title>{% block title %}SkillMatch{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <nav class="navbar">
+    <a class="brand" href="{{ url_for('index') }}"><span class="brand-mark">S</span> skillmatch<span class="brand-dot">.</span></a>
+    <div class="nav-links">
+      <a href="{{ url_for('index') }}">Home</a>
+      {% if student %}
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('analyze') }}">Analyze skills</a>
+        <a href="{{ url_for('history') }}">History</a>
+        <a class="nav-cta" href="{{ url_for('logout') }}">Log out</a>
+      {% else %}
+        <a class="nav-cta" href="{{ url_for('register') }}">Get started <span>↗</span></a>
+      {% endif %}
+    </div>
+  </nav>
+  <main class="page-shell">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-stack">
+          {% for category, message in messages %}
+            <div class="flash {{ category }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="footer"><span>© 2026 SkillMatch</span><span>Find your strengths. Build your future.</span></footer>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>
